@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141121074117) do
+ActiveRecord::Schema.define(version: 20141121075300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "vote_items", force: true do |t|
+    t.string   "name",       null: false
+    t.text     "addition"
+    t.integer  "vote_id",    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "vote_items", ["vote_id"], name: "index_vote_items_on_vote_id", using: :btree
 
   create_table "votes", force: true do |t|
     t.string   "title",                       null: false
