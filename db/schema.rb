@@ -11,10 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141121081742) do
+ActiveRecord::Schema.define(version: 20141121084157) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "answer_items", force: true do |t|
+    t.integer  "answer_id",    null: false
+    t.integer  "vote_item_id", null: false
+    t.integer  "rank"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "answer_items", ["answer_id"], name: "index_answer_items_on_answer_id", using: :btree
+  add_index "answer_items", ["vote_item_id"], name: "index_answer_items_on_vote_item_id", using: :btree
 
   create_table "answers", force: true do |t|
     t.integer  "vote_id"
