@@ -1,0 +1,23 @@
+%p#notice= notice
+
+%p
+  user name:
+  = @answer.user_name
+%p
+  comment:
+  = @answer.comment
+
+%table
+  %thead
+    %tr
+      %td 項目名
+      %td 追加情報
+  %tbody
+    - @vote.items.each do |item|
+      %tr
+        %td= item.name
+        %td= item.addition
+
+= link_to 'Edit', edit_vote_answer_path(@vote, @answer)
+\|
+= link_to 'Back', vote_answers_path

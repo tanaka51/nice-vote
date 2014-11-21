@@ -1,0 +1,21 @@
+%h1 Listing answers
+
+%table
+  %tr
+    %th 名前
+    %th コメント
+    %th
+    %th
+    %th
+
+  - @answers.each do |answer|
+    %tr
+      %td= answer.user_name
+      %td= answer.comment
+      %td= link_to 'Show', [@vote, answer]
+      %td= link_to 'Edit', edit_vote_answer_path(@vote, answer)
+      %td= link_to 'Destroy', [@vote, answer], :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Answer', new_vote_answer_path

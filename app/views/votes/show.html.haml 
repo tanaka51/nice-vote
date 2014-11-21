@@ -1,0 +1,14 @@
+%h1= @vote.title
+%p
+  = @vote.description
+
+%table
+  %thead
+    %tr
+      %td 項目名
+      %td 追加情報
+  %tbody
+    - @vote.items.each do |item|
+      %tr
+        %td= item.name
+        %td= item.addition
