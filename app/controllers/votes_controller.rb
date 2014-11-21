@@ -6,6 +6,7 @@ class VotesController < ApplicationController
 
   def new
     @vote = Vote.new
+    10.times { @vote.items.build }
   end
 
   def create
@@ -25,6 +26,13 @@ class VotesController < ApplicationController
   end
 
   def vote_params
-    params.require(:vote).permit(:title, :description, :password, :closed)
+    params.require(:vote).
+      permit(
+        :title,
+        :description,
+        :password,
+        :closed,
+        items_attributes: [:name, :addition]
+    )
   end
 end

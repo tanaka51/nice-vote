@@ -6,6 +6,7 @@
         - @vote.errors.full_messages.each do |msg|
           %li= msg
 
+  %h2 基本情報
   .field
     = f.label :title
     = f.text_field :title
@@ -18,5 +19,14 @@
   .field
     = f.label :closed
     = f.check_box :closed
+
+  %h2 項目
+  = f.fields_for :items do |item_f|
+    .field
+      = item_f.label :name
+      = item_f.text_field :name
+    .field
+      = item_f.label :addition
+      = item_f.text_area :addition
   .actions
     = f.submit 'Save'
