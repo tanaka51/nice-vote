@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  resources :votes
+  resources :votes, only: %i(show new create)
 end
