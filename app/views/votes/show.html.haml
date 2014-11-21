@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @vote.title
+%p
+  %b Description:
+  = @vote.description
+%p
+  %b Password:
+  = @vote.password
+%p
+  %b Closed:
+  = @vote.closed
+
+= link_to 'Edit', edit_vote_path(@vote)
+\|
+= link_to 'Back', votes_path

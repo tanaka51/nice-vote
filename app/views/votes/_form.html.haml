@@ -1,0 +1,22 @@
+= form_for @vote do |f|
+  - if @vote.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@vote.errors.count, "error")} prohibited this vote from being saved:"
+      %ul
+        - @vote.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :description
+    = f.text_area :description
+  .field
+    = f.label :password
+    = f.text_field :password
+  .field
+    = f.label :closed
+    = f.check_box :closed
+  .actions
+    = f.submit 'Save'
