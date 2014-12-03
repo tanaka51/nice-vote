@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
     unless @vote
       Rails.logger.warn "Should not reach! @vote has nothing"
 
-      redirect_to '/'
+      redirect_to root_path
     end
 
     unless session["vote_#{@vote.id}"]
