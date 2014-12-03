@@ -12,4 +12,5 @@ gem 'uglifier', '>= 1.3.0'
 group :development do
   gem 'spring'
   gem 'erb2haml'
+  gem 'pry-rails'
 end
