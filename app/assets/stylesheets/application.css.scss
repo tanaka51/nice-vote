@@ -2,3 +2,15 @@
 @import "bootstrap";
 @import "jumbotron-narrow";
 @import "bs-callout";
+
+table.table {
+  td.vote-item-name {
+    width: 350px;
+  }
+  td.vote-item-addition {
+    width: 350px;
+  }
+  td.vote-item-rank {
+    width: 50px;
+  }
+}

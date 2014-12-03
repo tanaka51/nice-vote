@@ -1,14 +1,10 @@
 %h1 投票シート
 
-.form-group
-  = label_tag Vote.human_attribute_name(:title)
-  %p.form-control= @vote.title
-.form-group
-  = label_tag Vote.human_attribute_name(:description)
-  %p.form-control= @vote.description
--# .form-group
--#   = f.label :password
--#   = f.password_field :password, class: 'form-control'
+%h4= Vote.human_attribute_name(:title)
+%p= @vote.title
+
+%h4= Vote.human_attribute_name(:description)
+%p= @vote.description
 
 %table.table.table-striped
   %thead

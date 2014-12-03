@@ -1,7 +1,24 @@
 - if @vote.closed
   投票が締め切られています
 
-= form_for [@vote, @answer] do |f|
+.panel.panel-default
+  .panel-heading
+    %h1.panel-title= @vote.title
+
+  .panel-body= @vote.description
+
+.bs-callout.bs-callout-primary
+  %h4 投票の仕方
+  %p
+    投票者名と、各項目のランクを埋めます。必要があればコメントに追記する事ができます。
+.bs-callout.bs-callout-primary
+  %h4 ランクについて
+  %p
+    ランクには数字を入力します。数字が若い方が上となります。何も入力しない == その項目には投票しない、という事になります。
+  %p
+    A, B, C の項目があって、A を一位、B を二位、C には投票しない、とする場合には、A に 1, B に 2, C には何も入れない、というようにします。
+
+= form_for [@vote, @answer], html: { role: 'form' } do |f|
   - if @answer.errors.any?
     #error_explanation
       %h2= "#{pluralize(@answer.errors.count, "error")} prohibited this answer from being saved:"
@@ -9,31 +26,33 @@
         - @answer.errors.full_messages.each do |msg|
           %li= msg
 
-  %h2 基本情報
-  .field
+  .form-group
     = f.label :user_name
-    = f.text_field :user_name, disabled: @vote.closed
-  .field
-    = f.label :comment
-    = f.text_area :comment, disabled: @vote.closed
+    = f.text_field :user_name, disabled: @vote.closed, class: 'form-control'
 
-  %h2 項目
-
-  %table
+  %table.table.table-hover
     %thead
       %tr
-        %td 項目名
-        %td 追加情報
-        %td ランク
+        %th 項目名
+        %th 追加情報
+        %th ランク
     %tbody
       = f.fields_for :items do |item_f|
         %tr
-          %td= item_f.object.vote_item.name
-          %td= item_f.object.vote_item.addition
-          %td= item_f.number_field :rank, disabled: @vote.closed
+          %td.vote-item-name= item_f.object.vote_item.name
+          %td.vote-item-addition= item_f.object.vote_item.addition
+          %td.vote-item-rank= item_f.number_field :rank, disabled: @vote.closed
           - unless @vote.closed
             = item_f.hidden_field 'id', value: item_f.object.id
             = item_f.hidden_field 'vote_item_id', value: item_f.object.vote_item.id
 
-  .actions
-    = f.submit 'Save', disabled: @vote.closed
+  .form-group
+    = f.label :comment
+    = f.text_area :comment, disabled: @vote.closed, class: 'form-control', rows: 8
+
+  .bs-callout.bs-callout-danger
+    %h4 一度投票すると取り消せません。
+    %p
+      もし間違っていた場合は管理者に問い合わせてください。
+
+  = f.submit '投票する', disabled: @vote.closed, class: 'btn btn-default btn-lg btn-primary'
