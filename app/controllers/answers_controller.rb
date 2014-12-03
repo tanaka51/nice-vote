@@ -2,7 +2,7 @@ class AnswersController < ApplicationController
   before_action :set_vote
   before_action :set_answer, only: [:show, :edit, :update, :destroy]
   before_action :check_vote, only: [:edit, :create, :update]
-  before_action :require_access_right, only: [:index, :destroy]
+  before_action :require_access_right, only: [:index, :edit, :update, :destroy]
 
   def index
     @answers = @vote.answers
