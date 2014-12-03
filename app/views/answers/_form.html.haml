@@ -1,3 +1,6 @@
+- if @vote.closed
+  投票が締め切られています
+
 = form_for [@vote, @answer] do |f|
   - if @answer.errors.any?
     #error_explanation
@@ -9,10 +12,10 @@
   %h2 基本情報
   .field
     = f.label :user_name
-    = f.text_field :user_name
+    = f.text_field :user_name, disabled: @vote.closed
   .field
     = f.label :comment
-    = f.text_area :comment
+    = f.text_area :comment, disabled: @vote.closed
 
   %h2 項目
 
@@ -27,9 +30,10 @@
         %tr
           %td= item_f.object.vote_item.name
           %td= item_f.object.vote_item.addition
-          %td= item_f.number_field :rank
-          = item_f.hidden_field 'id', value: item_f.object.id
-          = item_f.hidden_field 'vote_item_id', value: item_f.object.vote_item.id
+          %td= item_f.number_field :rank, disabled: @vote.closed
+          - unless @vote.closed
+            = item_f.hidden_field 'id', value: item_f.object.id
+            = item_f.hidden_field 'vote_item_id', value: item_f.object.vote_item.id
 
   .actions
-    = f.submit 'Save'
+    = f.submit 'Save', disabled: @vote.closed

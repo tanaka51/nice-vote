@@ -1,5 +1,6 @@
 class VotesController < ApplicationController
   before_action :set_vote, only: [:show, :edit, :update, :destroy]
+  before_action :require_access_right, only: %i(show update)
 
   def show
   end
@@ -13,9 +14,19 @@ class VotesController < ApplicationController
     @vote = Vote.new(vote_params)
 
     if @vote.save
+      session["vote_#{@vote.id}"] = true
+
       redirect_to @vote, notice: 'Vote was successfully created.'
     else
       render :new
+    end
+  end
+
+  def update
+    if @vote.update(vote_params_for_update)
+      redirect_to @vote
+    else
+      render :show
     end
   end
 
@@ -34,5 +45,9 @@ class VotesController < ApplicationController
         :closed,
         items_attributes: [:name, :addition]
     )
+  end
+
+  def vote_params_for_update
+    params.require(:vote).permit(:closed)
   end
 end

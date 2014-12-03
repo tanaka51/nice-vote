@@ -1,19 +1,16 @@
 class AnswersController < ApplicationController
   before_action :set_vote
   before_action :set_answer, only: [:show, :edit, :update, :destroy]
+  before_action :check_vote, only: [:edit, :create, :update]
+  before_action :require_access_right, only: [:index, :destroy]
 
-  # GET /answers
-  # GET /answers.json
   def index
     @answers = Answer.all
   end
 
-  # GET /answers/1
-  # GET /answers/1.json
   def show
   end
 
-  # GET /answers/new
   def new
     @answer = Answer.new
     @vote.items.each do |item|
@@ -21,7 +18,6 @@ class AnswersController < ApplicationController
     end
   end
 
-  # GET /answers/1/edit
   def edit
     exists_vote_item_ids = @answer.items.pluck(:vote_item_id)
     @vote.items.each do |item|
@@ -29,8 +25,6 @@ class AnswersController < ApplicationController
     end
   end
 
-  # POST /answers
-  # POST /answers.json
   def create
     @answer = Answer.new(answer_params)
 
@@ -45,8 +39,6 @@ class AnswersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /answers/1
-  # PATCH/PUT /answers/1.json
   def update
     respond_to do |format|
       if @answer.update(answer_params)
@@ -59,8 +51,6 @@ class AnswersController < ApplicationController
     end
   end
 
-  # DELETE /answers/1
-  # DELETE /answers/1.json
   def destroy
     @answer.destroy
     respond_to do |format|
@@ -80,5 +70,15 @@ class AnswersController < ApplicationController
 
   def answer_params
     params.require(:answer).permit(:user_name, :comment, items_attributes: [:id, :vote_item_id, :rank])
+  end
+
+  def check_vote
+    return unless @vote.closed
+
+    if @answer
+      redirect_to [@vote, @answer]
+    else
+      redirect_to action: :new
+    end
   end
 end

@@ -1,5 +1,8 @@
 %p#notice= notice
 
+- if @vote.closed
+  投票が締め切られています
+
 %p
   user name:
   = @answer.user_name
