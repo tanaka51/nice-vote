@@ -14,4 +14,5 @@ group :development do
   gem 'spring'
   gem 'erb2haml'
   gem 'pry-rails'
+  gem 'quiet_assets'
 end
