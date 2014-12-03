@@ -4,6 +4,8 @@
   %tr
     %th 名前
     %th コメント
+    - @vote.items.order(:id).each do |item|
+      %th= item.name
     %th
     %th
     %th
@@ -12,6 +14,8 @@
     %tr
       %td= answer.user_name
       %td= answer.comment
+      - answer.items.order(:vote_item_id).each do |item|
+        %td= item.rank
       %td= link_to 'Show', [@vote, answer]
       %td= link_to 'Edit', edit_vote_answer_path(@vote, answer)
       %td= link_to 'Destroy', [@vote, answer], :method => :delete, :data => { :confirm => 'Are you sure?' }

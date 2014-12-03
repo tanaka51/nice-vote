@@ -1,4 +1,5 @@
 class Vote < ActiveRecord::Base
+  has_many :answers
   has_many :items, class_name: 'VoteItem'
 
   validates :title,    presence: true

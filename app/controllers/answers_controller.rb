@@ -5,14 +5,14 @@ class AnswersController < ApplicationController
   before_action :require_access_right, only: [:index, :destroy]
 
   def index
-    @answers = Answer.all
+    @answers = @vote.answers
   end
 
   def show
   end
 
   def new
-    @answer = Answer.new
+    @answer = @vote.answers.build
     @vote.items.each do |item|
       @answer.items.build(vote_item: item)
     end
@@ -26,7 +26,7 @@ class AnswersController < ApplicationController
   end
 
   def create
-    @answer = Answer.new(answer_params)
+    @answer = @vote.answers.build(answer_params)
 
     respond_to do |format|
       if @answer.save
@@ -65,7 +65,7 @@ class AnswersController < ApplicationController
   end
 
   def set_answer
-    @answer = Answer.find(params[:id])
+    @answer = @vote.answers.find(params[:id])
   end
 
   def answer_params
