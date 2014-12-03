@@ -1,4 +1,3 @@
-%h1 Welcome!!
-
-%p
-  = link_to 'CREATE NICE VOTE', new_vote_path
+%h1.cover-heading= fa_icon 'users', text: 'MAKE A NICE VOTE', right: true
+%p.lead
+  = link_to 'CREATE NEW VOTE', new_vote_path, class: 'btn btn-lg btn-default'
