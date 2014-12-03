@@ -16,10 +16,17 @@ class AnswersController < ApplicationController
   # GET /answers/new
   def new
     @answer = Answer.new
+    @vote.items.each do |item|
+      @answer.items.build(vote_item: item)
+    end
   end
 
   # GET /answers/1/edit
   def edit
+    exists_vote_item_ids = @answer.items.pluck(:vote_item_id)
+    @vote.items.each do |item|
+      @answer.items.build(vote_item: item) unless exists_vote_item_ids.include?(item.id)
+    end
   end
 
   # POST /answers
@@ -72,6 +79,6 @@ class AnswersController < ApplicationController
   end
 
   def answer_params
-    params.require(:answer).permit(:user_name, :comment)
+    params.require(:answer).permit(:user_name, :comment, items_attributes: [:id, :vote_item_id, :rank])
   end
 end

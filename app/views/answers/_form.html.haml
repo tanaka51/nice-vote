@@ -6,12 +6,30 @@
         - @answer.errors.full_messages.each do |msg|
           %li= msg
 
+  %h2 基本情報
   .field
     = f.label :user_name
     = f.text_field :user_name
   .field
     = f.label :comment
     = f.text_area :comment
+
+  %h2 項目
+
+  %table
+    %thead
+      %tr
+        %td 項目名
+        %td 追加情報
+        %td ランク
+    %tbody
+      = f.fields_for :items do |item_f|
+        %tr
+          %td= item_f.object.vote_item.name
+          %td= item_f.object.vote_item.addition
+          %td= item_f.number_field :rank
+          = item_f.hidden_field 'id', value: item_f.object.id
+          = item_f.hidden_field 'vote_item_id', value: item_f.object.vote_item.id
 
   .actions
     = f.submit 'Save'

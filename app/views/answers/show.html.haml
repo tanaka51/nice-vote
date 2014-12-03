@@ -12,11 +12,13 @@
     %tr
       %td 項目名
       %td 追加情報
+      %td 回答
   %tbody
     - @vote.items.each do |item|
       %tr
         %td= item.name
         %td= item.addition
+        %td= @answer.items.find{|i| i.id == item.id}.try(:rank)
 
 = link_to 'Edit', edit_vote_answer_path(@vote, @answer)
 \|
