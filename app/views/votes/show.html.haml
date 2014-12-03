@@ -1,34 +1,38 @@
 %h1 投票シート
 
-%p
-  タイトル:
-  = @vote.title
-%p
-  説明:
-  = @vote.description
+.form-group
+  = label_tag Vote.human_attribute_name(:title)
+  %p.form-control= @vote.title
+.form-group
+  = label_tag Vote.human_attribute_name(:description)
+  %p.form-control= @vote.description
+-# .form-group
+-#   = f.label :password
+-#   = f.password_field :password, class: 'form-control'
 
-%table
+%table.table.table-striped
   %thead
     %tr
-      %td 項目名
-      %td 追加情報
+      %th 項目名
+      %th 追加情報
   %tbody
-    - @vote.items.each do |item|
+    - @vote.items.order(:id).each do |item|
       %tr
         %td= item.name
         %td= item.addition
 
-%p
-  回答 URL:
-  = link_to new_vote_answer_url(vote_id: @vote.uuid), new_vote_answer_url(vote_id: @vote.uuid), target: '_blank'
+%hr
 
-%p
-  集計 URL:
-  = link_to vote_answers_url(vote_id: @vote.uuid), vote_answers_url(vote_id: @vote.uuid), target: '_blank'
+%h4 回答 URL
+= link_to new_vote_answer_url(vote_id: @vote.uuid), new_vote_answer_url(vote_id: @vote.uuid), target: '_blank'
 
-%p
-  管理パスワード:
-  = @vote.password
+%h4 回答数
+= @vote.answers.size
+
+%h4 集計 URL
+= link_to vote_answers_url(vote_id: @vote.uuid), vote_answers_url(vote_id: @vote.uuid), target: '_blank'
+
+%hr
 
 = form_for @vote do |f|
   = f.label :closed_false, '投票を受け付ける'
@@ -36,4 +40,4 @@
   = f.label :closed_true, '投票を締め切る'
   = f.radio_button :closed, true, value: true
 
-  = f.submit '更新'
+  = f.submit '更新', class: 'btn btn-primary'

@@ -1,0 +1,11 @@
+ja:
+  activerecord:
+    attributes:
+      vote:
+        title: タイトル
+        description: 説明
+        password: パスワード
+
+      vote_item:
+        name: 項目名
+        addition: 追加情報
