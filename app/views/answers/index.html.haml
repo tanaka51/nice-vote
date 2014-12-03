@@ -19,7 +19,3 @@
       %td= link_to 'Show', [@vote, answer]
       %td= link_to 'Edit', edit_vote_answer_path(@vote, answer)
       %td= link_to 'Destroy', [@vote, answer], :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Answer', new_vote_answer_path

@@ -23,6 +23,10 @@
   = link_to new_vote_answer_url(vote_id: @vote.uuid), new_vote_answer_url(vote_id: @vote.uuid), target: '_blank'
 
 %p
+  集計 URL:
+  = link_to vote_answers_url(vote_id: @vote.uuid), vote_answers_url(vote_id: @vote.uuid), target: '_blank'
+
+%p
   管理パスワード:
   = @vote.password
 

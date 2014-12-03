@@ -22,7 +22,3 @@
         %td= item.name
         %td= item.addition
         %td= @answer.items.find{|i| i.vote_item_id == item.id}.try(:rank)
-
-= link_to 'Edit', edit_vote_answer_path(@vote, @answer)
-\|
-= link_to 'Back', vote_answers_path
