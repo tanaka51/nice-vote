@@ -4,7 +4,7 @@
 %p= @vote.title
 
 %h4= Vote.human_attribute_name(:description)
-%p= @vote.description
+%p= simple_format @vote.description
 
 %table.table.table-striped
   %thead
@@ -15,7 +15,7 @@
     - @vote.items.order(:id).each do |item|
       %tr
         %td= item.name
-        %td= item.addition
+        %td= simple_format item.addition
 
 %hr
 

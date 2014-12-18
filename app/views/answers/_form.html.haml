@@ -5,7 +5,7 @@
   .panel-heading
     %h1.panel-title= @vote.title
 
-  .panel-body= @vote.description
+  .panel-body= simple_format @vote.description
 
 .bs-callout.bs-callout-primary
   %h4 投票の仕方
@@ -40,7 +40,7 @@
       = f.fields_for :items do |item_f|
         %tr
           %td.vote-item-name= item_f.object.vote_item.name
-          %td.vote-item-addition= item_f.object.vote_item.addition
+          %td.vote-item-addition= simple_format item_f.object.vote_item.addition
           %td.vote-item-rank= item_f.number_field :rank, disabled: @vote.closed
           - unless @vote.closed
             = item_f.hidden_field 'id', value: item_f.object.id
