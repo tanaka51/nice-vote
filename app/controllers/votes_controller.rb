@@ -7,7 +7,7 @@ class VotesController < ApplicationController
 
   def new
     @vote = Vote.new
-    10.times { @vote.items.build }
+    20.times { @vote.items.build }
   end
 
   def create
@@ -18,7 +18,7 @@ class VotesController < ApplicationController
 
       redirect_to @vote, notice: 'Vote was successfully created.'
     else
-      (10 - @vote.items.size).times { @vote.items.build }
+      (20 - @vote.items.size).times { @vote.items.build }
       render :new
     end
   end
