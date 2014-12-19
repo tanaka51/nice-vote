@@ -7,6 +7,7 @@ class Vote < ActiveRecord::Base
   validates :uuid,     presence: true, uniqueness: true
 
   before_validation :set_uuid, unless: :uuid
+  before_validation :skip_update_password, on: :update, if: -> { password.blank? }
 
   accepts_nested_attributes_for :items, reject_if: -> (attr) { attr[:name].blank? }
 
@@ -22,5 +23,9 @@ class Vote < ActiveRecord::Base
       uuid = SecureRandom.uuid
     end
     self.uuid = uuid
+  end
+
+  def skip_update_password
+    self.password = password_was
   end
 end
