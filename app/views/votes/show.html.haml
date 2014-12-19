@@ -1,9 +1,9 @@
 %h1 投票シート
 
-%h4= Vote.human_attribute_name(:title)
+%h2= Vote.human_attribute_name(:title)
 %p= @vote.title
 
-%h4= Vote.human_attribute_name(:description)
+%h2= Vote.human_attribute_name(:description)
 %p= simple_format @vote.description
 
 %table.table.table-striped
@@ -19,13 +19,13 @@
 
 %hr
 
-%h4 回答 URL
+%h2 回答 URL
 = link_to new_vote_answer_url(vote_id: @vote.uuid), new_vote_answer_url(vote_id: @vote.uuid), target: '_blank'
 
-%h4 回答数
+%h2 回答数
 = @vote.answers.size
 
-%h4 集計 URL
+%h2 集計 URL
 = link_to vote_answers_url(vote_id: @vote.uuid), vote_answers_url(vote_id: @vote.uuid), target: '_blank'
 
 %hr
@@ -33,7 +33,8 @@
 = form_for @vote do |f|
   = f.label :closed_false, '投票を受け付ける'
   = f.radio_button :closed, false, value: false
+  %br
   = f.label :closed_true, '投票を締め切る'
   = f.radio_button :closed, true, value: true
-
+  %br
   = f.submit '更新', class: 'btn btn-primary'
