@@ -8,6 +8,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails'
 gem 'pg'
 gem 'rails', '4.1.8'
+gem 'rails_autolink'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 
