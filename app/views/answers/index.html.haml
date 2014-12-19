@@ -1,4 +1,4 @@
-%h1 Listing answers
+%h1 ユーザ毎回答一覧
 
 %table.table.table-hover
   %thead
@@ -21,3 +21,17 @@
         %td= link_to 'Show', [@vote, answer]
         %td= link_to 'Edit', edit_vote_answer_path(@vote, answer)
         %td= link_to 'Destroy', [@vote, answer], :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%h1 項目毎集計一覧
+
+%table.table.table-hover
+  %thead
+    %tr
+      %th 項目名
+      %th 集計値
+
+  %tbody
+    - @vote.items.each do |vote_item|
+      %tr
+        %td= vote_item.name
+        %td= @answers.joins(:items).where(answer_items: {vote_item_id: vote_item.id}).group(:rank).count.sort_by(&:first).to_h
