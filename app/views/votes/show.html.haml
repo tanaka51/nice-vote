@@ -30,11 +30,4 @@
 
 %hr
 
-= form_for @vote do |f|
-  = f.label :closed_false, '投票を受け付ける'
-  = f.radio_button :closed, false, value: false
-  %br
-  = f.label :closed_true, '投票を締め切る'
-  = f.radio_button :closed, true, value: true
-  %br
-  = f.submit '更新', class: 'btn btn-primary'
+= link_to 'タイトル、説明、公開/非公開を編集する', edit_vote_path, class: 'btn btn-primary'

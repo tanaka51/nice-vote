@@ -10,6 +10,9 @@ class VotesController < ApplicationController
     20.times { @vote.items.build }
   end
 
+  def edit
+  end
+
   def create
     @vote = Vote.new(vote_params)
 
@@ -27,7 +30,7 @@ class VotesController < ApplicationController
     if @vote.update(vote_params_for_update)
       redirect_to @vote
     else
-      render :show
+      render :edit
     end
   end
 
@@ -49,6 +52,12 @@ class VotesController < ApplicationController
   end
 
   def vote_params_for_update
-    params.require(:vote).permit(:closed)
+    params.require(:vote).
+      permit(
+        :title,
+        :description,
+        :password,
+        :closed
+    )
   end
 end

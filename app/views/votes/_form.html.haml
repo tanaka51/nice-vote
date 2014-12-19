@@ -18,31 +18,43 @@
     %p.help-block
       投票の締め切りや、回答の閲覧に使います。
 
-  .row
-    = f.fields_for :items do |item_f|
-      .form-group.col-xs-6
-        = item_f.label :name
-        = item_f.text_field :name, class: 'form-control'
-        %p.help-block
-          ここに入力した内容に対して、投票が行われます。
+  - if f.object.new_record?
+    .row
+      = f.fields_for :items do |item_f|
+        .form-group.col-xs-6
+          = item_f.label :name
+          = item_f.text_field :name, class: 'form-control'
+          %p.help-block
+            ここに入力した内容に対して、投票が行われます。
 
-      .form-group.col-xs-6
-        = item_f.label :addition
-        = item_f.text_area :addition, class: 'form-control'
-        %p.help-block
-          追加の情報があれば別途ここに記入できます。
+        .form-group.col-xs-6
+          = item_f.label :addition
+          = item_f.text_area :addition, class: 'form-control'
+          %p.help-block
+            追加の情報があれば別途ここに記入できます。
 
-  .checkbox
-    = f.label :closed do
-      = f.check_box :closed
-      投票を閉めきった状態でスタートする(後で変更できます)
+  - if f.object.new_record?
+    .checkbox
+      = f.label :closed do
+        = f.check_box :closed
+        投票を閉めきった状態でスタートする
 
-  .bs-callout.bs-callout-danger
-    %h4 一度作成すると変更ができません。
-    %p
-      一度作成したら、各項目の追加/変更/削除はできません。
-      変更したくなった場合は新しくつくりなおしてください。
-      30日が過ぎた投票は自動的に削除されます。(予定)
+    .bs-callout.bs-callout-danger
+      %h4 一度作成すると"投票項目"の変更ができません。
+      %p
+        一度作成したら、各投票項目の追加/変更/削除はできません。
+        変更したくなった場合は新しくつくりなおしてください。
+        30日が過ぎた投票は自動的に削除されます。(予定)
+
+  - else
+    = f.label :closed_false, '投票を受け付ける'
+    = f.radio_button :closed, false, value: false
+    %br
+    = f.label :closed_true, '投票を締め切る'
+    = f.radio_button :closed, true, value: true
 
   .actions
-    = f.submit '上記内容で投票を開始する', class: 'btn btn-primary btn-lg'
+    - if f.object.new_record?
+      = f.submit '上記内容で投票を開始する', class: 'btn btn-primary btn-lg'
+    - else
+      = f.submit '更新する', class: 'btn btn-primary btn-lg'
