@@ -34,7 +34,7 @@
     - @vote.items.each do |vote_item|
       %tr
         %td= vote_item.name
-        - c = @answers.joins(:items).where(answer_items: {vote_item_id: vote_item.id}).group(:rank).count
+        - c = @answers.joins(:items).where(answer_items: {vote_item_id: vote_item.id}).group(:rank).count.map{|k, v| [k.to_i, v.to_i]}.to_h
         - Rails.logger.info '*' * 30
         - Rails.logger.info c.inspect
         %td= c.sort_by(&:first).to_h
