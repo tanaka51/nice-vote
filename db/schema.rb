@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20141121084157) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "answer_items", force: true do |t|
+  create_table "answer_items", force: :cascade do |t|
     t.integer  "answer_id",    null: false
     t.integer  "vote_item_id", null: false
     t.integer  "rank"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20141121084157) do
   add_index "answer_items", ["answer_id"], name: "index_answer_items_on_answer_id", using: :btree
   add_index "answer_items", ["vote_item_id"], name: "index_answer_items_on_vote_item_id", using: :btree
 
-  create_table "answers", force: true do |t|
+  create_table "answers", force: :cascade do |t|
     t.integer  "vote_id"
     t.string   "user_name",  null: false
     t.text     "comment"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20141121084157) do
 
   add_index "answers", ["vote_id"], name: "index_answers_on_vote_id", using: :btree
 
-  create_table "vote_items", force: true do |t|
+  create_table "vote_items", force: :cascade do |t|
     t.string   "name",       null: false
     t.text     "addition"
     t.integer  "vote_id",    null: false
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 20141121084157) do
 
   add_index "vote_items", ["vote_id"], name: "index_vote_items_on_vote_id", using: :btree
 
-  create_table "votes", force: true do |t|
+  create_table "votes", force: :cascade do |t|
     t.string   "title",                       null: false
     t.text     "description"
     t.string   "password",                    null: false
